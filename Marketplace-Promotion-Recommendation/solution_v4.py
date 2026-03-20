@@ -420,3 +420,19 @@ print(f"Ensemble NDCG@3: {best_ensemble_score:.6f}")
 print(f"Seeds: {len(seeds)}")
 print(f"Features: {len(feature_cols)}")
 print("DONE!")
+
+
+# Sacamos la importancia del primer modelo de ranking del ensemble
+import matplotlib.pyplot as plt
+
+# Tomamos el primer modelo de la lista de entrenados
+m = best_rank_models[0][0] 
+importance = pd.DataFrame({'feature': feature_cols, 'importance': m.feature_importance()})
+importance = importance.sort_values('importance', ascending=False)
+
+print("\n=== TOP 20 FEATURES ===")
+print(importance.head(20))
+
+# Si querés ver si hay basura (features con importancia 0)
+print("\n=== FEATURES QUE NO SIRVEN PARA NADA ===")
+print(importance[importance['importance'] == 0])
