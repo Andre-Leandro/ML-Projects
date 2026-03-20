@@ -395,22 +395,22 @@ else:
 
 # Also generate individual submissions
 print("\n=== Submissions ===")
-pd.DataFrame({'candidate_id': test_cids, 'score': final_pred}).to_csv('submission.csv', index=False)
+pd.DataFrame({'candidate_id': test_cids, 'score': final_pred}).to_csv('working/submission.csv', index=False)
 print(f"submission.csv (best ensemble): [{final_pred.min():.4f}, {final_pred.max():.4f}]")
 
 # Simple average as backup
 avg_final = np.mean([all_test_preds[l] for l in all_labels], axis=0)
-pd.DataFrame({'candidate_id': test_cids, 'score': avg_final}).to_csv('submission_avg.csv', index=False)
+pd.DataFrame({'candidate_id': test_cids, 'score': avg_final}).to_csv('working/submission_avg.csv', index=False)
 print(f"submission_avg.csv (simple avg): [{avg_final.min():.4f}, {avg_final.max():.4f}]")
 
 # Best single rank model
 best_rank_idx = max(range(n_rank), key=lambda i: best_rank_models[i][2])
-pd.DataFrame({'candidate_id': test_cids, 'score': all_test_preds[all_labels[best_rank_idx]]}).to_csv('submission_rank.csv', index=False)
+pd.DataFrame({'candidate_id': test_cids, 'score': all_test_preds[all_labels[best_rank_idx]]}).to_csv('working/submission_rank.csv', index=False)
 print(f"submission_rank.csv (best rank)")
 
 # Best single binary model
 best_bin_idx = max(range(n_bin), key=lambda i: best_bin_models[i][2])
-pd.DataFrame({'candidate_id': test_cids, 'score': all_test_preds[all_labels[n_rank + best_bin_idx]]}).to_csv('submission_bin.csv', index=False)
+pd.DataFrame({'candidate_id': test_cids, 'score': all_test_preds[all_labels[n_rank + best_bin_idx]]}).to_csv('working/submission_bin.csv', index=False)
 print(f"submission_bin.csv (best binary)")
 
 print(f"\n=== SUMMARY ===")
